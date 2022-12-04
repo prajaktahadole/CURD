@@ -1,4 +1,3 @@
-import { Form } from 'react-router-dom'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Home } from './components/home';
@@ -10,7 +9,8 @@ import { auth } from "./firebase-config";
 
 function App() {
 
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  // State to determine user is loggedIn or not.
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth")); 
 
   const SignOutt = () => {
     signOut(auth).then(() => {
@@ -27,17 +27,19 @@ function App() {
         {!isAuth ? (
           <Link to="/login"> Login </Link>
         ) : (
+          //New Post is only visible when user is logged In.
           <>
-            <Link to="/newpost"> New Post </Link>
+            <Link to="/newpost"> New Post </Link>         
             <button onClick={SignOutt}> Log Out</button>
           </>
         )}
       </nav>
 
       <Routes>
+         {/* passing state as a prop to login component */}
         <Route path="/" element={<Home isAuth={isAuth} />} />
         <Route path="/newpost" element={<NewPost isAuth={isAuth} />} />
-        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />   
       </Routes>
     </Router>
   )

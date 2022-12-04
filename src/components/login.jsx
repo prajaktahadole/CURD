@@ -12,7 +12,7 @@ export const Login = ({setIsAuth}) => {
 
     signInWithPopup(auth, provider).then((result) => {
 
-      localStorage.setItem("isAuth", true);
+      localStorage.setItem("isAuth", true);       //contain all info of user loggedIn
 
       setIsAuth(true);
       navigate("/");
